@@ -1,21 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import StackNavigator from "./src/navigation/StackNavigation";
+import AppLoading from "expo-app-loading";
+import { useFonts } from "@use-expo/font";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const customFonts = {
+  "PTSerif-Bold": require("./src/assets/fonts/PTSerif-Bold.ttf"),
+  "PTSerif-Regular": require("./src/assets/fonts/PTSerif-Regular.ttf"),
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => {
+  const [isLoaded] = useFonts(customFonts);
+
+  if (!isLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
+    );
+  }
+};
+
+export default App;
